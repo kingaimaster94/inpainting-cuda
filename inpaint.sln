@@ -4,8 +4,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test", "test\test.vcxproj", "{32CA2A8A-F0E6-4937-8BDA-A00DFDE8DA9D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2BB42D95-57E1-4AAA-9E99-B6E63340B490} = {2BB42D95-57E1-4AAA-9E99-B6E63340B490}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "inpainting", "inpainting\inpainting.vcxproj", "{2BB42D95-57E1-4AAA-9E99-B6E63340B490}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "inpaintingcuda", "inpaintingcuda\inpaintingcuda.vcxproj", "{FC43B860-DFDA-446B-A843-5B8DF7702014}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +36,14 @@ Global
 		{2BB42D95-57E1-4AAA-9E99-B6E63340B490}.Release|x64.Build.0 = Release|x64
 		{2BB42D95-57E1-4AAA-9E99-B6E63340B490}.Release|x86.ActiveCfg = Release|Win32
 		{2BB42D95-57E1-4AAA-9E99-B6E63340B490}.Release|x86.Build.0 = Release|Win32
+		{FC43B860-DFDA-446B-A843-5B8DF7702014}.Debug|x64.ActiveCfg = Debug|x64
+		{FC43B860-DFDA-446B-A843-5B8DF7702014}.Debug|x64.Build.0 = Debug|x64
+		{FC43B860-DFDA-446B-A843-5B8DF7702014}.Debug|x86.ActiveCfg = Debug|Win32
+		{FC43B860-DFDA-446B-A843-5B8DF7702014}.Debug|x86.Build.0 = Debug|Win32
+		{FC43B860-DFDA-446B-A843-5B8DF7702014}.Release|x64.ActiveCfg = Release|x64
+		{FC43B860-DFDA-446B-A843-5B8DF7702014}.Release|x64.Build.0 = Release|x64
+		{FC43B860-DFDA-446B-A843-5B8DF7702014}.Release|x86.ActiveCfg = Release|Win32
+		{FC43B860-DFDA-446B-A843-5B8DF7702014}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

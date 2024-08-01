@@ -8,21 +8,24 @@ void inpaint(const Mat& _src, const Mat& _mask, Mat& dst)
 {
     const int nTransform = 60;
     const int psize = 8;
-    const cv::Point2i dsize = cv::Point2i(800, 600);
+    const cv::Point2i dsize = cv::Point2i(400, 400);
+
     /** Preparing input **/
     cv::Mat src, mask, img, dmask, ddmask;
+    cv::cvtColor(_src, src, cv::COLOR_BGR2Lab);
+    cv::threshold(_mask, mask, 128, 255, cv::THRESH_BINARY | cv::THRESH_OTSU);
 
     const float ls = std::max(/**/ std::min( /*...*/
-        std::max(_src.rows, _src.cols) / float(dsize.x),
-        std::min(_src.rows, _src.cols) / float(dsize.y)
+        std::max(src.rows, src.cols) / float(dsize.x),
+        std::min(src.rows, src.cols) / float(dsize.y)
     ), 1.0f /**/);
 
     int width = _mask.cols / ls;
     int height = _mask.rows / ls;
     cv::Size scaleSize(width, height);
 
-    cv::resize(_mask, mask, scaleSize, 0, 0, cv::INTER_NEAREST);
-    cv::resize(_src, src, scaleSize, 0, 0, cv::INTER_AREA);
+    cv::resize(mask, mask, scaleSize, 0, 0, cv::INTER_NEAREST);
+    cv::resize(src, src, scaleSize, 0, 0, cv::INTER_AREA);
 
     src.convertTo(img, CV_32F);
     img.setTo(0, ~(mask > 0));
@@ -224,5 +227,6 @@ void inpaint(const Mat& _src, const Mat& _mask, Mat& dst)
         img.template at<cv::Vec <float, 3> >(pPath[i]) = val;
     }
     img.convertTo(dst, dst.type());
+    cv::cvtColor(dst, dst, cv::COLOR_Lab2BGR);
 }
 

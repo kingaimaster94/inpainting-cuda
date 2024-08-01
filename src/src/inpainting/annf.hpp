@@ -179,10 +179,15 @@ static void dominantTransforms(const cv::Mat &img, std::vector <cv::Point2i> &tr
     cv::split(img, channels);
 
     int cncase = std::max(img.channels() - 2, 0);
-    const int np[] = {cncase == 0 ? 12 : (cncase == 1 ? 16 : 10),
-                      cncase == 0 ? 12 : (cncase == 1 ? 04 : 02),
-                      cncase == 0 ? 00 : (cncase == 1 ? 04 : 02),
-                      cncase == 0 ? 00 : (cncase == 1 ? 00 : 10)};
+    //const int np[] = {cncase == 0 ? 12 : (cncase == 1 ? 16 : 10),
+    //                  cncase == 0 ? 12 : (cncase == 1 ? 04 : 02),
+    //                  cncase == 0 ? 00 : (cncase == 1 ? 04 : 02),
+    //                  cncase == 0 ? 00 : (cncase == 1 ? 00 : 10)};
+
+    const int np[] = { cncase == 0 ? 12 : (cncase == 1 ? 4 : 10),
+                      cncase == 0 ? 12 : (cncase == 1 ? 1 : 02),
+                      cncase == 0 ? 00 : (cncase == 1 ? 1 : 02),
+                      cncase == 0 ? 00 : (cncase == 1 ? 00 : 10) };
 
     for (int i = 0; i < img.channels(); ++i)
         rgb2whs(channels[i], channels[i], np[i], psize);
@@ -190,7 +195,9 @@ static void dominantTransforms(const cv::Mat &img, std::vector <cv::Point2i> &tr
     cv::Mat whs; // Walsh-Hadamard series
     cv::merge(channels, whs);
 
-    KDTree <float, 24> kdTree(whs, leafNum, zeroThresh);
+//    KDTree <float, 24> kdTree(whs, leafNum, zeroThresh);
+    KDTree <float, 6> kdTree(whs, leafNum, zeroThresh);
+
     std::vector <int> annf( whs.total(), 0 );
 
     /** Propagation-assisted kd-tree search **/

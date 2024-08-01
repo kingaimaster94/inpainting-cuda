@@ -46,28 +46,20 @@ int main(int argc, const char** argv)
         return -1;
     }
 
-    cv::cvtColor(src, src, cv::COLOR_BGR2Lab);
-
     cv::Mat mask = cv::imread(maskFilename, cv::IMREAD_GRAYSCALE);
     if (mask.empty())
     {
         printf("Cannot read image file: %s\n", maskFilename.c_str());
         return -1;
     }
-    //cv::threshold(mask, mask, 128, 255, cv::THRESH_BINARY | cv::THRESH_OTSU);
+    //
 
     cv::Mat res(src.size(), src.type());
 
-    //CInpainting inpaint;
     int time = clock();
-    //inpaint.preprocessing(src, mask);
-    //cv::cvtColor(src, src, COLOR_BGR2Luv);
-    //inpaint.inpaint(src, mask, res
     inpaint(src, mask, res);
     std::cout << "time = " << (clock() - time)
         / double(CLOCKS_PER_SEC) << std::endl;
-
-    cv::cvtColor(res, res, cv::COLOR_Lab2BGR);
 
     if (outFilename == "")
     {
